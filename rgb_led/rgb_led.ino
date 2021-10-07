@@ -8,6 +8,8 @@ int gomb=2;
 byte feny=0;
 byte irany=1;
 
+bool mukodik=true;
+
 void setup() {
  pinMode (r, OUTPUT);
  pinMode (b, OUTPUT);
@@ -40,6 +42,7 @@ analogWrite(g,67);*/
 }
 
 void loop() {
+   if (mukodik){
 
   poti=analogRead(A0); //0-1023
   feny=map(poti,0,1023,0,255);
@@ -52,17 +55,24 @@ void loop() {
   poti=analogRead(A2); //0-1023
   feny=map(poti,0,1023,0,255);
   analogWrite(g,feny); //feny 0-255
+   }
+   else 
+    digitalWrite(r,0);
+    digitalWrite(b,0);
+    digitalWrite(g,0);
   
-  Serial.print("Analóg érték:");
+  /*Serial.print("Analóg érték:");
   Serial.println(analogRead(A0));
   Serial.print("; Feszültség:" );
-  Serial.print(feny);
+  Serial.print(feny);*/
 
   if (digitalRead(gomb)==0)
   {
     delay(60);
     if (digitalRead(gomb)==0){
       Serial.println("Gomb megnyomva!");
+      mukodik=!mukodik;
+   
     }
   }
   
